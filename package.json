@@ -1,0 +1,12 @@
+{
+  "name": "appts",
+  "version": "1.0.0",
+  "description": "App desarrollada en TypeScript para servir de ejemplo de sus funcionalidades",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "Rodrigo Robles Miñambres",
+  "license": "ISC"
+}
