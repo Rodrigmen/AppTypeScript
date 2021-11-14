@@ -1,2 +1,5 @@
 "use strict";
-console.log("Hola mundo");
+var pRespuesta = document.getElementById("pRespuesta");
+if (pRespuesta) {
+    pRespuesta.innerHTML = "Ejemplo sencillo";
+}
