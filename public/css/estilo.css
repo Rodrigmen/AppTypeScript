@@ -1,0 +1,23 @@
+* {
+    font-family: Candara, Calibri, Segoe, Segoe UI, Optima, Arial, sans-serif;
+}
+
+#opciones {
+float: right;
+    height: auto;
+    width: auto;
+    background: #5c5cbd;
+    left: 0px;
+    top: 0px;
+    color: black;
+    cursor: move;
+}
+
+h2 {
+    text-align: center;
+}
+#opciones button {
+    font-size: 2vh;
+    width: 100%;
+    height: 100%;
+}
