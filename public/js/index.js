@@ -1,4 +1,5 @@
-function crearInput(titulo: string, id: string, tipo: string, formulario: HTMLFormElement) {
+"use strict";
+function crearInput(titulo, id, tipo, formulario) {
     var input = document.createElement('input');
     input.title = titulo;
     input.id = id;
@@ -8,19 +9,19 @@ function crearInput(titulo: string, id: string, tipo: string, formulario: HTMLFo
     input.type = tipo;
     formulario.appendChild(input);
 }
-function crearCampoError(id: string, formulario: HTMLFormElement) {
+function crearCampoError(id, formulario) {
     var p = document.createElement('p');
     p.className = "error";
     p.id = id;
     formulario.appendChild(p);
 }
-function crearEtiqueta(referencia: string, contenido: string, formulario: HTMLFormElement) {
+function crearEtiqueta(referencia, contenido, formulario) {
     var label = document.createElement('label');
     label.setAttribute("for", referencia);
     label.textContent = contenido;
     formulario.appendChild(label);
 }
-function crearParrafo(contenido: string, destino: HTMLElement, idspan: string | null) {
+function crearParrafo(contenido, destino, idspan) {
     var p = document.createElement('p');
     p.textContent = contenido;
     if (idspan != null) {
@@ -30,14 +31,14 @@ function crearParrafo(contenido: string, destino: HTMLElement, idspan: string | 
     }
     destino.appendChild(p);
 }
-function crearFormulario(opcion: number) {
-    var main = document.getElementById('app') as HTMLElement;
+function crearFormulario(opcion) {
+    var main = document.getElementById('app');
     var h2 = document.createElement('h2');
     h2.textContent = darTitulo(opcion);
     main.appendChild(h2);
     var form = document.createElement('form');
     form.method = "POST";
-    var aBotones: Array<Array<string>> = [
+    var aBotones = [
         ["aceptar", "Enviar los datos al sistema", "Aceptar"],
         ["volver", "Volver a la página de inicio", "Volver"]
     ];
@@ -45,24 +46,21 @@ function crearFormulario(opcion: number) {
         crearEtiqueta("nombre", "Nombre *", form);
         crearInput("Nombre de la persona que se quiera introducir", "nombre", "text", form);
         crearCampoError("enombre", form);
-
         crearEtiqueta("dni", "DNI *", form);
         crearInput("DNI de la persona que se quiera introducir", "dni", "text", form);
         crearCampoError("edni", form);
-
         crearEtiqueta("parcelas", "Nº Parcelas *", form);
         crearInput("Número de parcelas que posee o tiene arrendada la persona", "parcelas", "number", form);
         crearCampoError("eparcelas", form);
-
         crearParrafo("Elige el tipo: ", form, null);
         crearEtiqueta("propietario", "Propietario", form);
         crearInput("", "propietario", "radio", form);
         crearEtiqueta("arrendatario", "Arrendatario", form);
         crearInput("", "arrendatario", "radio", form);
-
         crearParrafo("Importe: ", form, 'importe');
         crearParrafo("Importe total: ", form, 'total');
-    } else {
+    }
+    else {
         crearEtiqueta("dni", "DNI *", form);
         crearInput("DNI de la persona que se quiera eliminar", "dni", "text", form);
         crearCampoError("edni", form);
@@ -70,35 +68,37 @@ function crearFormulario(opcion: number) {
     añadirBotones(aBotones, form);
     main.appendChild(form);
 }
-function soloMostrar(opcion: number) {
-    var main = document.getElementById('app') as HTMLElement;
+function soloMostrar(opcion) {
+    var main = document.getElementById('app');
     var h2 = document.createElement('h2');
     h2.textContent = darTitulo(opcion);
     main.appendChild(h2);
     var div = document.createElement('div');
-    var aBotones: Array<Array<string>> = [
+    var aBotones = [
         ["volver", "Volver a la página de inicio", "Volver"]
     ];
     if (opcion === 2) {
         //por cada persona un p
-    } else {
+    }
+    else {
         crearParrafo("Importe total aumulado en el sistema: ", div, 'tImportes');
     }
     añadirBotones(aBotones, div);
     main.appendChild(div);
 }
-function ejecutarFuncion(this: HTMLElement) {
-    var main = document.getElementById('app') as HTMLElement;
+function ejecutarFuncion() {
+    var main = document.getElementById('app');
     main.innerHTML = "";
     var opcion = parseInt(this.id);
     if (opcion < 2) {
         crearFormulario(opcion);
-    } else {
+    }
+    else {
         soloMostrar(opcion);
     }
 }
-function darTitulo(opcion: number) {
-    var titulo: string = "Menú";
+function darTitulo(opcion) {
+    var titulo = "Menú";
     switch (opcion) {
         case 0:
             titulo = "Crear persona";
@@ -115,10 +115,10 @@ function darTitulo(opcion: number) {
     }
     return titulo;
 }
-function añadirBotones(datosBotones: Array<Array<string>>, destino: HTMLElement) {
-    var boton: HTMLButtonElement;
+function añadirBotones(datosBotones, destino) {
+    var boton;
     var funcion;
-    for (let i = 0; i < datosBotones.length; i++) {
+    for (var i = 0; i < datosBotones.length; i++) {
         boton = document.createElement('button');
         boton.id = i.toString();
         boton.className = datosBotones[i][0];
@@ -133,13 +133,13 @@ function añadirBotones(datosBotones: Array<Array<string>>, destino: HTMLElement
     }
 }
 function cargarMenu() {
-    var main = document.getElementById('app') as HTMLElement;
+    var main = document.getElementById('app');
     main.innerHTML = "";
     var h2 = document.createElement('h2');
     h2.textContent = darTitulo(-1);
     main.appendChild(h2);
     var div = document.createElement('div');
-    var aBotones: Array<Array<string>> = [
+    var aBotones = [
         ["opciones", "Formulario para insertar una persona en el sistema", "Crear una persona"],
         ["opciones", "Formulario para eliminar una persona del sistema", "Eliminar una persona"],
         ["opciones", "Formulario para eliminar una persona del sistema", "Listado de personas"],

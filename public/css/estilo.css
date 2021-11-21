@@ -1,23 +1,48 @@
 * {
-    font-family: Candara, Calibri, Segoe, Segoe UI, Optima, Arial, sans-serif;
+    Font-family: Gill Sans, Gill Sans MT, Calibri, sans-serif;
 }
 
-#opciones {
-float: right;
-    height: auto;
-    width: auto;
-    background: #5c5cbd;
-    left: 0px;
-    top: 0px;
-    color: black;
-    cursor: move;
+html,
+body {
+    height: 100%;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
 }
 
-h2 {
+header {
+    height: 80px;
+    width: 100%;
     text-align: center;
+    background-color: black;
+    color: white;
+    font-size: 7vh;
 }
-#opciones button {
+
+main {
+    height: 80%;
+    width: 100%;
+    background: #e7fc89;
+}
+
+footer {
+    height: 10%;
+    width: 100%;
+    background: rgb(104, 104, 243);
+}
+
+div {
+    border: 10px rgb(253, 149, 149) solid;
+}
+
+/*#opciones button {
+   /*padding: 3%;
     font-size: 2vh;
     width: 100%;
     height: 100%;
+}*/
+
+h2 {
+    font-size: 5vh;
+    text-align: center;
 }
