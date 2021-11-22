@@ -1,5 +1,6 @@
 * {
     Font-family: Gill Sans, Gill Sans MT, Calibri, sans-serif;
+    color:white;
 }
 
 html,
@@ -16,8 +17,7 @@ header {
     display: flex;
     justify-content: center;
     align-items: center;
-    background-color: black;
-    color: white;
+    background: rgb(68, 65, 65);
     font-size: 7vh;
 }
 
@@ -27,7 +27,7 @@ main,
     font-size: 3vh;
     height: 80%;
     width: 100%;
-    background: #e7fc89;
+    background: rgb(68, 65, 65);
 }
 
 main {
@@ -35,7 +35,7 @@ main {
 }
 
 #formulario label,
-p,
+#formulario p,
 input:not(input[type="radio"]) {
     margin-left: 40%;
 }
@@ -44,8 +44,11 @@ input:not(input[type="radio"]){
     width: 20%;
     height: 4%;
 }
-input[type="radio"]{
-    padding: 50%;;
+#propietario{
+    margin-left: 3%;
+}
+#arrendatario{
+    margin-left: 2%;
 }
 button {
     border: none;
@@ -63,11 +66,11 @@ button {
 }
 
 .aceptar {
-    color: white;
     background-color: rgb(99, 238, 71);
 }
 
 .aceptar:disabled {
+    cursor:default;
     opacity: 0.5;
 }
 
@@ -77,7 +80,6 @@ button {
 }
 
 .volver {
-    color: white;
     background-color: rgb(245, 76, 76);
 }
 
@@ -87,27 +89,32 @@ button {
 }
 
 .opciones {
-    color: rgb(68, 65, 65);
-    background-color: white;
+    background-color: rgb(68, 65, 65);
 }
 
 .opciones:hover {
-    background-color: rgb(68, 65, 65);
-    color: white;
+    background-color: white;
+    color: rgb(68, 65, 65);
 }
 
 footer {
-    padding-left: 0%;
-    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
     font-size: 4vh;
     height: 10%;
     width: 100%;
-    background: rgb(104, 104, 243);
+    background: rgb(68, 65, 65);
+    color:white;
+}
+footer p{
+    border-bottom: 0.2vh white solid;
 }
 
 h2 {
     font-size: 5vh;
     text-align: center;
+    text-shadow: 2px 2px 30px black;
 }
 
 h3 {

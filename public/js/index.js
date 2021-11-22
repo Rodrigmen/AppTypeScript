@@ -318,7 +318,7 @@ function cargarMenu() {
     if (ultimaAccion !== null) {
         var h3 = document.createElement('h3');
         h3.textContent = "Última acción: " + ultimaAccion;
-        h3.style.color = "green";
+        h3.style.color = "rgb(99, 238, 71)";
         main.appendChild(h3);
     }
     var div = document.createElement('div');
@@ -339,6 +339,10 @@ function actualizarTotal() {
     var spanImporte = document.getElementById('importe');
     var gTipo = document.getElementsByName('tipos');
     var numParcelas = parseInt(document.getElementById('parcelas').value);
+    if (numParcelas < 1) {
+        numParcelas = 1;
+        document.getElementById('parcelas').value = "1";
+    }
     var importe = 0;
     var resultado;
     gTipo.forEach(function (radio) {
