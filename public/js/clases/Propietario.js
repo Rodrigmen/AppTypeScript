@@ -20,7 +20,7 @@ var Propietario = /** @class */ (function (_super) {
         return _super.call(this, nombre, dni, n_parcelas, 50) || this;
     }
     Propietario.prototype.getTotalImporte = function () {
-        return (this.getImporte() * this.getN_Parcelas());
+        return (this.getCanon() * this.getN_Parcelas());
     };
     Propietario.prototype.toString = function () {
         return _super.prototype.toString.call(this) + ' y gasta al año como propietario: ' + this.getTotalImporte() + " €";

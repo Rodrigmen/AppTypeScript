@@ -4,7 +4,7 @@ class Propietario extends Persona {
     }
 
     public getTotalImporte(): number {
-        return (this.getImporte() * this.getN_Parcelas());
+        return (this.getCanon() * this.getN_Parcelas());
     }
     
     public toString(): string {

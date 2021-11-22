@@ -10,6 +10,9 @@ class SistemaRegantes {
         return this.listaPersonas.length;
     }
 
+    public getListaObjetosPersona():Array<Persona>{
+        return this.listaPersonas;
+    }
     public getListaPersonas(): Array<string> {
         var aTextoPersonas: Array<string> = [];
         for (let i = 0; i < this.listaPersonas.length; i++) {

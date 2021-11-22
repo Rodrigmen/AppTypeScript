@@ -2,12 +2,12 @@ abstract class Persona {
     private nombre: string;
     private dni: string;
     private n_parcelas: number;
-    private importe: number;
+    private canon: number;
 
-    constructor(nombre: string, dni: string, n_parcelas: number, importe: number) {
+    constructor(nombre: string, dni: string, n_parcelas: number, canon: number) {
         this.nombre = nombre;
         this.dni = dni;
-        this.importe = importe;
+        this.canon = canon;
         if (n_parcelas < 1) {
             throw new Error("¡Debe tener alguna parcela para incluirlo en el sistema!");
 
@@ -20,8 +20,8 @@ abstract class Persona {
     public getN_Parcelas(): number{
         return this.n_parcelas;
         
-    }public getImporte(): number {
-        return this.importe;
+    }public getCanon(): number {
+        return this.canon;
     }
     public abstract getTotalImporte(): number;
 

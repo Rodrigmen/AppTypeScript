@@ -20,7 +20,7 @@ var Arrendatario = /** @class */ (function (_super) {
         return _super.call(this, nombre, dni, n_parcelas, 25) || this;
     }
     Arrendatario.prototype.getTotalImporte = function () {
-        return (this.getImporte() * this.getN_Parcelas());
+        return (this.getCanon() * this.getN_Parcelas());
     };
     Arrendatario.prototype.toString = function () {
         return _super.prototype.toString.call(this) + ' y gasta al año como arrendatario: ' + this.getTotalImporte() + " €";

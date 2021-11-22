@@ -7,6 +7,9 @@ var SistemaRegantes = /** @class */ (function () {
     SistemaRegantes.prototype.getnumPersonas = function () {
         return this.listaPersonas.length;
     };
+    SistemaRegantes.prototype.getListaObjetosPersona = function () {
+        return this.listaPersonas;
+    };
     SistemaRegantes.prototype.getListaPersonas = function () {
         var aTextoPersonas = [];
         for (var i = 0; i < this.listaPersonas.length; i++) {

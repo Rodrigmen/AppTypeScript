@@ -265,6 +265,16 @@ function enviarFormulario() {
         eliminarPersona(dni);
     }
 }
+function importar() {
+    /*Then, use the JavaScript built-in function JSON.parse() to convert the string into a JavaScript object:
+
+const obj = JSON.parse(text); */
+}
+function exportar() {
+    var sistemaJSON = JSON.stringify(sistema);
+    var fs = require('fs');
+    fs.writeFile("sistemaRegantes.json", sistemaJSON);
+}
 function añadirBotones(datosBotones, destino) {
     var boton;
     var funcion;
@@ -284,6 +294,9 @@ function añadirBotones(datosBotones, destino) {
             boton.type = "submit";
             boton.disabled = true;
             funcion = enviarFormulario;
+        }
+        if (boton.id === (datosBotones.length - 1).toString() && boton.className === "opciones") {
+            funcion = exportar;
         }
         boton.addEventListener('click', funcion, false);
     }
@@ -320,7 +333,8 @@ function cargarMenu() {
         ["opciones", "Formulario para insertar una persona en el sistema", "Crear una persona"],
         ["opciones", "Formulario para eliminar una persona del sistema", "Eliminar una persona"],
         ["opciones", "Formulario para eliminar una persona del sistema", "Listado de personas"],
-        ["opciones", "Importe total acumulado de todas las personas del sistema", "Ver el importe total"]
+        ["opciones", "Importe total acumulado de todas las personas del sistema", "Ver el importe total"],
+        ["opciones", "Exportar los datos a JSON", "Exportar a JSON"]
     ];
     añadirBotones(aBotones, div);
     main.appendChild(div);
@@ -331,23 +345,25 @@ function cargarMenu() {
 function actualizarTotal() {
     var spanTotal = document.getElementById('total');
     var spanImporte = document.getElementById('importe');
-    var importe = 50;
-    var numParcelas = 1;
-    var resultado = 0;
-    if (this.id === "arrendatario") {
-        importe = 25;
-    }
-    if (this.id === "propietario") {
-        importe = 50;
-    }
+    var gTipo = document.getElementsByName('tipos');
+    var numParcelas = parseInt(document.getElementById('parcelas').value);
+    var importe = 0;
+    var resultado;
+    gTipo.forEach(function (radio) {
+        if (radio.checked) {
+            if (radio.id === "arrendatario") {
+                importe = 25;
+            }
+            else {
+                importe = 50;
+            }
+        }
+    });
+    resultado = (importe * numParcelas);
     if (spanImporte) {
         spanImporte.innerHTML = "";
         spanImporte.innerHTML = importe.toString();
     }
-    if (this.id === "parcelas") {
-        numParcelas = parseInt(this.value);
-    }
-    resultado = (importe * numParcelas);
     if (spanTotal) {
         spanTotal.innerHTML = "";
         spanTotal.innerHTML = resultado.toString();
