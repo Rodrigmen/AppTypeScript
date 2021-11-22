@@ -1,5 +1,9 @@
 "use strict";
-var sistema;
+var ePropietario = new Propietario('Rodrigo', '71047140W', 5);
+var eArrendatario = new Arrendatario('Hugo', '10661223X', 5);
+var aPersonas = [ePropietario, eArrendatario];
+var ultimaAccion = null;
+var sistema = new SistemaRegantes(aPersonas);
 function crearInput(titulo, id, tipo, formulario) {
     var input = document.createElement('input');
     input.title = titulo;
@@ -19,7 +23,7 @@ function crearInput(titulo, id, tipo, formulario) {
             input.addEventListener('change', actualizarTotal, false);
             break;
         case 'text':
-            input.addEventListener('blur', comprobarTexto, false);
+            input.addEventListener('keyup', comprobarTexto, false);
             break;
     }
     formulario.appendChild(input);
@@ -55,6 +59,7 @@ function comprobarTexto() {
     var hayError = false;
     var pError;
     var bEnviar = document.getElementById("0");
+    this.value = this.value.trim();
     if (this.id === "dni") {
         pError = document.getElementById("edni");
         var reg = /^\d{8}[A-Z]$/;
@@ -75,9 +80,13 @@ function comprobarTexto() {
         }
     }
     else {
+        pError = document.getElementById("enombre");
         if (this.value.length === 0) {
-            pError = document.getElementById("enombre");
             error = "¡No se ha introducido nada!";
+            hayError = true;
+        }
+        if (this.value.length > 15) {
+            error = "¡Nombre demasiado largo! (15 carácteres como máximo)";
             hayError = true;
         }
     }
@@ -100,15 +109,50 @@ function comprobarTexto() {
             pError.innerHTML = "";
         }
     }
-    console.log(error);
+}
+function insertarPersona(dni, nombre, tipo, n_parcelas) {
+    var Persona = null;
+    if (tipo === "propietario") {
+        Persona = new Propietario(nombre, dni, n_parcelas);
+    }
+    else {
+        Persona = new Arrendatario(nombre, dni, n_parcelas);
+    }
+    if (sistema.incluirPersona(Persona)) {
+        ultimaAccion = "Has insertado una persona";
+        cargarMenu();
+    }
+    else {
+        ultimaAccion = "Has intentado insertar una persona sin mucho éxito";
+        var pError = document.getElementById('edni');
+        if (pError) {
+            pError.style.color = "red";
+            pError.innerHTML = "Ya existe una persona con ese dni...";
+        }
+    }
+}
+function eliminarPersona(dni) {
+    if (sistema.eliminarPersona(dni)) {
+        ultimaAccion = "Has eliminado a una persona";
+        cargarMenu();
+    }
+    else {
+        ultimaAccion = "Has intentado eliminar una persona sin mucho éxito";
+        var pError = document.getElementById('edni');
+        if (pError) {
+            pError.style.color = "red";
+            pError.innerHTML = "Persona inexistente...";
+        }
+    }
 }
 function crearFormulario(opcion) {
-    var main = document.getElementById('app');
+    var header = document.getElementById('titulo');
+    eliminarAnteriores(false);
     var h2 = document.createElement('h2');
     h2.textContent = darTitulo(opcion);
-    main.appendChild(h2);
-    var form = document.createElement('form');
-    //form.method = "POST";
+    var form = document.createElement('div');
+    form.id = 'formulario';
+    form.appendChild(h2);
     var aBotones = [
         ["aceptar", "Enviar los datos al sistema", "Aceptar"],
         ["volver", "Volver a la página de inicio", "Volver"]
@@ -136,10 +180,15 @@ function crearFormulario(opcion) {
         crearCampoError("edni", form);
     }
     añadirBotones(aBotones, form);
-    main.appendChild(form);
+    if (header.parentNode) {
+        header.parentNode.insertBefore(form, header.nextSibling);
+    }
 }
 function soloMostrar(opcion) {
-    var main = document.getElementById('app');
+    var header = document.getElementById('titulo');
+    eliminarAnteriores(false);
+    var main = document.createElement("main");
+    main.id = "datos";
     var h2 = document.createElement('h2');
     h2.textContent = darTitulo(opcion);
     main.appendChild(h2);
@@ -148,14 +197,16 @@ function soloMostrar(opcion) {
         ["volver", "Volver a la página de inicio", "Volver"]
     ];
     var numeroPersonas = sistema.getnumPersonas();
-    if (numeroPersonas > 1) {
+    if (numeroPersonas > 0) {
         if (opcion === 2) {
+            ultimaAccion = "Has mirado la lista de personas que componen el sistema";
             var aTextoPersonas = sistema.getListaPersonas();
             aTextoPersonas.forEach(function (textoPersona) {
                 crearParrafo(textoPersona, div, null, null);
             });
         }
         else {
+            ultimaAccion = "Has mirado el importe total acumulado del sistema";
             crearParrafo("Importe total acumulado en el sistema: ", div, 'tImportes', sistema.importeTotal());
         }
     }
@@ -164,10 +215,11 @@ function soloMostrar(opcion) {
     }
     añadirBotones(aBotones, div);
     main.appendChild(div);
+    if (header.parentNode) {
+        header.parentNode.insertBefore(main, header.nextSibling);
+    }
 }
 function ejecutarFuncion() {
-    var main = document.getElementById('app');
-    main.innerHTML = "";
     var opcion = parseInt(this.id);
     if (opcion < 2) {
         crearFormulario(opcion);
@@ -195,6 +247,23 @@ function darTitulo(opcion) {
     return titulo;
 }
 function enviarFormulario() {
+    var dni = document.getElementById("dni").value;
+    var iNombre = document.getElementById("nombre");
+    if (iNombre) {
+        var nombre = iNombre.value;
+        var n_parcelas = parseInt(document.getElementById("parcelas").value);
+        var gTipos = document.getElementsByName("tipos");
+        var tipo = "";
+        gTipos.forEach(function (radio) {
+            if (radio.checked) {
+                tipo = radio.id;
+            }
+        });
+        insertarPersona(dni, nombre, tipo, n_parcelas);
+    }
+    else {
+        eliminarPersona(dni);
+    }
 }
 function añadirBotones(datosBotones, destino) {
     var boton;
@@ -208,27 +277,44 @@ function añadirBotones(datosBotones, destino) {
         destino.appendChild(boton);
         funcion = ejecutarFuncion;
         if (boton.className === "volver") {
+            boton.type = "button";
             funcion = cargarMenu;
         }
         if (boton.className === "aceptar") {
+            boton.type = "submit";
             boton.disabled = true;
             funcion = enviarFormulario;
         }
         boton.addEventListener('click', funcion, false);
     }
 }
-function inicializarSistemaReg() {
-    var ePropietario = new Propietario('Rodrigo', '12345678A', 5);
-    var eArrendatario = new Arrendatario('Hugo', '12345678A', 5);
-    var aPersonas = [];
-    sistema = new SistemaRegantes(aPersonas);
+function eliminarAnteriores(yForm) {
+    var body = document.getElementById('app');
+    var mainCreado = document.getElementById('datos');
+    if (mainCreado && body) {
+        body.removeChild(mainCreado);
+    }
+    if (yForm) {
+        var formCreado = document.getElementById('formulario');
+        if (formCreado && body) {
+            body.removeChild(formCreado);
+        }
+    }
 }
 function cargarMenu() {
-    var main = document.getElementById('app');
-    main.innerHTML = "";
+    var header = document.getElementById('titulo');
+    eliminarAnteriores(true);
+    var main = document.createElement("main");
+    main.id = "datos";
     var h2 = document.createElement('h2');
     h2.textContent = darTitulo(-1);
     main.appendChild(h2);
+    if (ultimaAccion !== null) {
+        var h3 = document.createElement('h3');
+        h3.textContent = "Última acción: " + ultimaAccion;
+        h3.style.color = "green";
+        main.appendChild(h3);
+    }
     var div = document.createElement('div');
     var aBotones = [
         ["opciones", "Formulario para insertar una persona en el sistema", "Crear una persona"],
@@ -238,7 +324,9 @@ function cargarMenu() {
     ];
     añadirBotones(aBotones, div);
     main.appendChild(div);
-    inicializarSistemaReg();
+    if (header.parentNode) {
+        header.parentNode.insertBefore(main, header.nextSibling);
+    }
 }
 function actualizarTotal() {
     var spanTotal = document.getElementById('total');

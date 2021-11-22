@@ -25,7 +25,7 @@ var SistemaRegantes = /** @class */ (function () {
     };
     SistemaRegantes.prototype.incluirPersona = function (persona) {
         var incluido = false;
-        if (this.getPersona(persona.getDni()) != null) {
+        if (this.getPersona(persona.getDni()) === null) {
             if (this.listaPersonas.push(persona)) {
                 incluido = true;
             }

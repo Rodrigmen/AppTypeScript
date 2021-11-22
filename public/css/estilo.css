@@ -19,7 +19,7 @@ header {
     font-size: 7vh;
 }
 
-main {
+main, #formulario {
     height: 80%;
     width: 100%;
     background: #e7fc89;

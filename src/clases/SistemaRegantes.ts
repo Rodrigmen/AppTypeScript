@@ -29,7 +29,7 @@ class SistemaRegantes {
 
     public incluirPersona(persona: Persona): boolean {
         var incluido: boolean = false;
-        if (this.getPersona(persona.getDni()) != null) {
+        if (this.getPersona(persona.getDni()) === null) {
             if (this.listaPersonas.push(persona)) {
                 incluido = true;
             }
