@@ -1,6 +1,6 @@
 * {
     Font-family: Gill Sans, Gill Sans MT, Calibri, sans-serif;
-    color:white;
+    color: white;
 }
 
 html,
@@ -40,16 +40,23 @@ input:not(input[type="radio"]) {
     margin-left: 40%;
 }
 
-input:not(input[type="radio"]){
+input {
+    color: black;
+}
+
+input:not(input[type="radio"]) {
     width: 20%;
     height: 4%;
 }
-#propietario{
+
+#propietario {
     margin-left: 3%;
 }
-#arrendatario{
+
+#arrendatario {
     margin-left: 2%;
 }
+
 button {
     border: none;
     border-radius: 4%;
@@ -70,7 +77,7 @@ button {
 }
 
 .aceptar:disabled {
-    cursor:default;
+    cursor: default;
     opacity: 0.5;
 }
 
@@ -105,9 +112,10 @@ footer {
     height: 10%;
     width: 100%;
     background: rgb(68, 65, 65);
-    color:white;
+    color: white;
 }
-footer p{
+
+footer p {
     border-bottom: 0.2vh white solid;
 }
 
