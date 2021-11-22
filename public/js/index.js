@@ -159,23 +159,29 @@ function crearFormulario(opcion) {
     ];
     if (opcion === 0) {
         crearEtiqueta("nombre", "Nombre *", form);
+        form.appendChild(document.createElement("BR"));
         crearInput("Nombre de la persona que se quiera introducir", "nombre", "text", form);
         crearCampoError("enombre", form);
         crearEtiqueta("dni", "DNI *", form);
+        form.appendChild(document.createElement("BR"));
         crearInput("DNI de la persona que se quiera introducir", "dni", "text", form);
         crearCampoError("edni", form);
         crearEtiqueta("parcelas", "Nº Parcelas *", form);
+        form.appendChild(document.createElement("BR"));
         crearInput("Número de parcelas que posee o tiene arrendada la persona", "parcelas", "number", form);
         crearParrafo("Elige el tipo: ", form, null, null);
         crearEtiqueta("propietario", "Propietario", form);
         crearInput(" ", "propietario", "radio", form);
+        form.appendChild(document.createElement("BR"));
         crearEtiqueta("arrendatario", "Arrendatario", form);
         crearInput(" ", "arrendatario", "radio", form);
         crearParrafo("Importe por parcela: ", form, 'importe', 50);
         crearParrafo("Importe total: ", form, 'total', 50);
+        console.log(form);
     }
     else {
         crearEtiqueta("dni", "DNI *", form);
+        form.appendChild(document.createElement("BR"));
         crearInput("DNI de la persona que se quiera eliminar", "dni", "text", form);
         crearCampoError("edni", form);
     }
@@ -265,16 +271,6 @@ function enviarFormulario() {
         eliminarPersona(dni);
     }
 }
-function importar() {
-    /*Then, use the JavaScript built-in function JSON.parse() to convert the string into a JavaScript object:
-
-const obj = JSON.parse(text); */
-}
-function exportar() {
-    var sistemaJSON = JSON.stringify(sistema);
-    var fs = require('fs');
-    fs.writeFile("sistemaRegantes.json", sistemaJSON);
-}
 function añadirBotones(datosBotones, destino) {
     var boton;
     var funcion;
@@ -294,9 +290,6 @@ function añadirBotones(datosBotones, destino) {
             boton.type = "submit";
             boton.disabled = true;
             funcion = enviarFormulario;
-        }
-        if (boton.id === (datosBotones.length - 1).toString() && boton.className === "opciones") {
-            funcion = exportar;
         }
         boton.addEventListener('click', funcion, false);
     }
@@ -333,8 +326,7 @@ function cargarMenu() {
         ["opciones", "Formulario para insertar una persona en el sistema", "Crear una persona"],
         ["opciones", "Formulario para eliminar una persona del sistema", "Eliminar una persona"],
         ["opciones", "Formulario para eliminar una persona del sistema", "Listado de personas"],
-        ["opciones", "Importe total acumulado de todas las personas del sistema", "Ver el importe total"],
-        ["opciones", "Exportar los datos a JSON", "Exportar a JSON"]
+        ["opciones", "Importe total acumulado de todas las personas del sistema", "Ver el importe total"]
     ];
     añadirBotones(aBotones, div);
     main.appendChild(div);

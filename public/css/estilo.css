@@ -11,61 +11,106 @@ body {
 }
 
 header {
-    height: 80px;
+    height: 15%;
     width: 100%;
-    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
     background-color: black;
     color: white;
     font-size: 7vh;
 }
 
-main, #formulario {
+main,
+#formulario {
+    overflow-y: auto;
+    font-size: 3vh;
     height: 80%;
     width: 100%;
     background: #e7fc89;
 }
 
+main {
+    text-align: center;
+}
+
+#formulario label,
+p,
+input:not(input[type="radio"]) {
+    margin-left: 40%;
+}
+
+input:not(input[type="radio"]){
+    width: 20%;
+    height: 4%;
+}
+input[type="radio"]{
+    padding: 50%;;
+}
+button {
+    border: none;
+    border-radius: 4%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 40%;
+    margin: 0 auto;
+    cursor: pointer;
+    font-size: 4vh;
+    padding: 1%;
+    margin-bottom: 1%;
+    transition-duration: 0.4s;
+}
+
+.aceptar {
+    color: white;
+    background-color: rgb(99, 238, 71);
+}
+
+.aceptar:disabled {
+    opacity: 0.5;
+}
+
+.aceptar:hover {
+    background-color: white;
+    color: rgb(99, 238, 71);
+}
+
+.volver {
+    color: white;
+    background-color: rgb(245, 76, 76);
+}
+
+.volver:hover {
+    background-color: white;
+    color: rgb(245, 76, 76);
+}
+
+.opciones {
+    color: rgb(68, 65, 65);
+    background-color: white;
+}
+
+.opciones:hover {
+    background-color: rgb(68, 65, 65);
+    color: white;
+}
+
 footer {
+    padding-left: 0%;
+    text-align: center;
+    font-size: 4vh;
     height: 10%;
     width: 100%;
     background: rgb(104, 104, 243);
 }
 
-div {
-    border: 10px rgb(253, 149, 149) solid;
-}
-
-
-[data-title]:hover:after {
-    opacity: 1;
-    transition: all 0.1s ease 0.5s;
-    visibility: visible;
-}
-
-[data-title]:after {
-    content: attr(data-title);
-    background-color: #333;
-    color: #fff;
-    font-size: 14px;
-    font-family: Raleway;
-    position: absolute;
-    padding: 3px 20px;
-    bottom: -1.6em;
-    left: 100%;
-    white-space: nowrap;
-    box-shadow: 1px 1px 3px #222222;
-    opacity: 0;
-    border: 1px solid #111111;
-    z-index: 99999;
-    visibility: hidden;
-    border-radius: 6px;
-    
-}
-[data-title] {
-    position: relative;
-}
-
 h2 {
     font-size: 5vh;
+    text-align: center;
+}
+
+h3 {
+    font-size: 4vh;
     text-align: center;
 }

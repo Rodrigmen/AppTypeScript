@@ -154,26 +154,32 @@ function crearFormulario(opcion: number) {
     ];
     if (opcion === 0) {
         crearEtiqueta("nombre", "Nombre *", form);
+        form.appendChild(document.createElement("BR"));
         crearInput("Nombre de la persona que se quiera introducir", "nombre", "text", form);
         crearCampoError("enombre", form);
 
         crearEtiqueta("dni", "DNI *", form);
+        form.appendChild(document.createElement("BR"));
         crearInput("DNI de la persona que se quiera introducir", "dni", "text", form);
         crearCampoError("edni", form);
 
         crearEtiqueta("parcelas", "Nº Parcelas *", form);
+        form.appendChild(document.createElement("BR"));
         crearInput("Número de parcelas que posee o tiene arrendada la persona", "parcelas", "number", form);
 
         crearParrafo("Elige el tipo: ", form, null, null);
         crearEtiqueta("propietario", "Propietario", form);
         crearInput(" ", "propietario", "radio", form);
+        form.appendChild(document.createElement("BR"));
         crearEtiqueta("arrendatario", "Arrendatario", form);
         crearInput(" ", "arrendatario", "radio", form);
 
         crearParrafo("Importe por parcela: ", form, 'importe', 50);
         crearParrafo("Importe total: ", form, 'total', 50);
+        console.log(form);
     } else {
         crearEtiqueta("dni", "DNI *", form);
+        form.appendChild(document.createElement("BR"));
         crearInput("DNI de la persona que se quiera eliminar", "dni", "text", form);
         crearCampoError("edni", form);
     }
