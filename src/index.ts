@@ -2,21 +2,25 @@
 var ePropietario: Propietario = new Propietario('Rodrigo', '71047140W', 5);
 var eArrendatario: Arrendatario = new Arrendatario('Hugo', '10661223X', 5);
 var aPersonas: Array<Persona> = [ePropietario, eArrendatario];
+
 /**
- * Es el la variable en la que se guardará la última acción realizada por el usario en la aplicación
+ * Es el la variable en la que se guardará la última acción realizada por el usario en la aplicación.
  */
 var ultimaAccion: string | null = null;
+
 /**
- * Es el la constante en la que se guarda la clase SistemaRegantes, en la cuál se guarda toda la información de la aplicación
+ * Es el la constante en la que se guarda la clase SistemaRegantes, en la cuál se guarda toda la información 
+ * de la aplicación.
  */
 const sistema: SistemaRegantes = new SistemaRegantes(aPersonas);
 
-
 /**
- * Da un título al index según la opción enviada como parámetro
- * @param opcion es el número que diferencia el tipo de creación que se lleva a cabo 
+ * Regresa el título para la vista de la aplicación dependiendo de el número pasado como parámetro ('opcion').
+ *
+ * @param opcion De 0 a 3
+ * @returns título
  */
-function darTitulo(opcion: number) {
+function darTitulo(opcion: number): string {
     var titulo: string = "Menú";
     switch (opcion) {
         case 0:
@@ -34,11 +38,18 @@ function darTitulo(opcion: number) {
     }
     return titulo;
 }
+
 /**
- * Crea un main que muestra una determinada información según la opción enviada como parámetro
- * @param opcion es el número que diferencia el tipo de creación que se lleva a cabo 
+ * Genera un 'main' con una información y elementos HTML determinados dependiendo del número pasado 
+ * como parámetro ('opcion').
+ * 
+ * * Si la 'opcion' es igual a 2 se mostrará la lista de personas guardadas en el sistema.
+ * * Si es igual a 3 mostrará el importe total en el sistema.
+ * * Si no hay personas en el sistema, mostrará un mensaje de error.
+ * 
+ * @param opcion 2 o 3 
  */
-function crearMain(opcion: number) {
+function crearMain(opcion: number): void {
     var header = document.getElementById('titulo') as HTMLElement;
     eliminarAnteriores(false);
     var main = document.createElement("main");
@@ -72,11 +83,17 @@ function crearMain(opcion: number) {
         header.parentNode.insertBefore(main, header.nextSibling);
     }
 }
+
 /**
- * Crea un formulario o un main según el botón pinchado
- * @param this es el propio boton que se pincha 
+ * Ejecuta una función que genera la sección principal del cuerpo de la vista de la aplicación web ('main'),
+ * o la la división llamada 'formulario' dependiendo del id del botón pinchado.
+ * 
+ * Si se pincha uno de los dos primeros botones, se generará una división llamada 'formulario', y se si pincha
+ * uno de los dos últimos, se generará un 'main'.
+ * 
+ * @param this Elemento HTML que ejecuta el evento/función
  */
-function ejecutarFuncion(this: HTMLElement) {
+function ejecutarFuncion(this: HTMLElement): void {
     var opcion = parseInt(this.id);
     if (opcion < 2) {
         crearFormulario(opcion);
@@ -86,11 +103,13 @@ function ejecutarFuncion(this: HTMLElement) {
 }
 
 /**
- * Crea e inserta una serie de botones en un HTMLElement
- * @param datosBotones Array de los arrays de los datos que identificarán a los botones
- * @param destino Elemento del index donde se van a insertar los botones creados
+ * Crea una serie de botones a través de los datos introducidos como parámetro 'datosBotones' y los inserta en
+ * un elemento HTML, el cual, es indicado mediante el parámetro 'destino'.
+ * 
+ * @param datosBotones Array de Arrays de cadenas de texto
+ * @param destino Elemento HTML en el que se insertan los botones creados
  */
-function añadirBotones(datosBotones: Array<Array<string>>, destino: HTMLElement) {
+function añadirBotones(datosBotones: Array<Array<string>>, destino: HTMLElement): void {
     var boton: HTMLButtonElement;
     var funcion;
     for (let i = 0; i < datosBotones.length; i++) {
@@ -115,11 +134,12 @@ function añadirBotones(datosBotones: Array<Array<string>>, destino: HTMLElement
 }
 
 /**
- * Elimina los elementos creados con anterioridad, es decir, el main 'datos'
- * y dependiendo del boolean el div 'formulario'
- * @param yForm boolean que indica si se elimina o no 'formulario'
+ * Elimina la sección principal del cuerpo de la vista de la aplicación web ('main'),
+ * y según el parámetro boolean introducido, la división llamada 'formulario' puede eliminarse o no.
+ * 
+ * @param yForm true o false
  */
-function eliminarAnteriores(yForm: boolean) {
+function eliminarAnteriores(yForm: boolean): void {
     var body = document.getElementById('app');
     var mainCreado = document.getElementById('datos');
     if (mainCreado && body) {
@@ -134,9 +154,9 @@ function eliminarAnteriores(yForm: boolean) {
 }
 
 /**
- * Carga el menú inicial de la aplicación
+ * Genera el menú de la aplicación (vista inicial).
  */
-function cargarMenu() {
+function cargarMenu(): void {
     var header = document.getElementById('titulo') as HTMLElement;
     eliminarAnteriores(true);
     var main = document.createElement("main");
@@ -164,4 +184,5 @@ function cargarMenu() {
     }
 }
 
+// Al cargar la página se ejecuta la función cargarMenu
 window.onload = cargarMenu;

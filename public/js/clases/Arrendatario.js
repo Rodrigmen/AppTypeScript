@@ -14,16 +14,39 @@ var __extends = (this && this.__extends) || (function () {
         d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
     };
 })();
+/**
+ * Un arrendatario es un tipo de persona la cuál cultiva un número de parcelas.
+ *
+ * @author Rodrigo Robles
+ * @version 1.0
+ */
 var Arrendatario = /** @class */ (function (_super) {
     __extends(Arrendatario, _super);
+    /**
+     * Crea una instancia de arrendatario.
+     *
+     * @param nombre Nombre del arrendatario
+     * @param dni Dni del arrendatario
+     * @param n_parcelas Número de parcelas
+     */
     function Arrendatario(nombre, dni, n_parcelas) {
         return _super.call(this, nombre, dni, n_parcelas, 25) || this;
     }
-    Arrendatario.prototype.getTotalImporte = function () {
+    /**
+     * Devuelve el importe total que paga el arrendatario por el número de parcelas en su posesión.
+     *
+     * @returns importe total
+     */
+    Arrendatario.prototype.getImportePersonal = function () {
         return (this.getCanon() * this.getN_Parcelas());
     };
+    /**
+     * Devuelve una cadena de texto que contiene toda la información del arrendatario.
+     *
+     * @returns string
+    */
     Arrendatario.prototype.toString = function () {
-        return _super.prototype.toString.call(this) + ' y gasta al año como arrendatario: ' + this.getTotalImporte() + " €";
+        return _super.prototype.toString.call(this) + ' y gasta al año como arrendatario: ' + this.getImportePersonal() + " €";
     };
     return Arrendatario;
 }(Persona));
